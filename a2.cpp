@@ -16,9 +16,9 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	list my_list("m11.txt");
+	list my_list(argv[1]);
 
-	my_list.CheckMyOperationAndExecute("m2.txt");
+	my_list.CheckMyOperationAndExecute(argv[2]);
 
 
 

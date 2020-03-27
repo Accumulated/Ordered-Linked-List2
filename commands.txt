@@ -1,27 +1,10 @@
 wordCount
-wordCount wrong
-distWords 
-distWords wrong
+distWords
 charCount
-charCount wrong
 frequentWord
-frequentWord wrong
-countWord
-countWord that
-countWord fog
-countWord yes
-countWord order
-countWord were
-countWord stallman
-starting l
-starting se
-starting were
+countWord example
+starting th
 containing is
-containing mm
 search am
-search no
-search xc
-search io
-search pp
+search
 read
-noCommadShouldMatch
