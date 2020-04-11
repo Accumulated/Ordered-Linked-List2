@@ -1,5 +1,15 @@
+
+
+
+
 wordCount
-distWords
+DistWords
+
+
+
+
+
+
 charCount
 frequentWord
 countWord example

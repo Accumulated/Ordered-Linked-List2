@@ -25,7 +25,7 @@ typedef std::string listelementType;
 
 
 #define forbidden_strings_count	17
-#define forbidden_char_count	13
+#define forbidden_char_count	17
 // No direct submission in class variable
 class list
 {
@@ -54,8 +54,8 @@ class list
 
 
 		// Functions go right here
-		bool LinkedList_Insertion (listelementType &e, std:: string &line_to_append);
-		bool LinkedList_Search(listelementType &e, int mode);
+		bool LinkedList_Insertion (const listelementType &e, const std:: string &line_to_append);
+		bool LinkedList_Search(const listelementType &e, int mode);
 		bool LinkedList_Load(const std:: string FileToOpen);
 		bool LinkedList_Load_Enhanced_even_more(const std:: string FileToOpen);
 

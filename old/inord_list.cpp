@@ -31,8 +31,8 @@ const char *operationsArray[NoOfOperations] = {
 const string forbidden[] = {"a", "an", "the", "in", "on", "of", "and",
 	"is", "are"};
 
-const string forbidden_strings[forbidden_strings_count] = {"'", "\"", "]", "[", "}", ")", ",", ";", ":", "&", ".", "(" ,"{"};
-const char forbidden_chars[forbidden_char_count] = {'\'', ',', ';', ':', '&', '.', ')', '(', '{', '}', '[', ']', '"'};
+const string forbidden_strings[forbidden_strings_count] = {"'", "\"", "]", "[", "}", ")", ",", ";", ":", "’", "‘", "&", "“", "”", ".", "(" ,"{"};
+const char forbidden_chars[forbidden_char_count] = {'\'', ',', ';', ':', '’', '‘', '&', '“', '”', '.', ')', '(', '{', '}', '[', ']', '"'};
 
 
 // Default constructor for a list
@@ -73,7 +73,7 @@ list:: list(const string FileToOpen)
 }
 
 // Fast insertion, Insert from the root, head, node.
-bool list :: LinkedList_Insertion(listelementType &e, string &line_to_append)
+bool list :: LinkedList_Insertion(const listelementType &e, const string &line_to_append)
 {
 	node *tmp = new node;
 	assert(tmp != NULL);
@@ -190,7 +190,7 @@ bool list :: LinkedList_Load(const string FileToOpen)
 	int line_Number = 0;
 
 	// Empty string to save lines at
-	string Line_Number_Append_ME;
+	string Line_Number_Append_ME = "";
 
 	// Open dictionary
 	file.open(FileToOpen, ios::in);
@@ -375,7 +375,7 @@ bool list :: LinkedList_Load_Enhanced_even_more(const string FileToOpen)
 	int line_Number = 0;
 
 	// Empty string to save lines at
-	string Line_Number_Append_ME;
+	string Line_Number_Append_ME = "";
 
 	// Open dictionary
 	file.open(FileToOpen, ios::in);
@@ -437,19 +437,15 @@ bool list :: LinkedList_Load_Enhanced_even_more(const string FileToOpen)
 						{
 							//cout << buffeee << endl;
 							// Check for invalid strings
-							/*
 							for(int i = 0; i < forbidden_strings_count; i++)
 							{
 								if(buffeee.compare(forbidden_strings[i]) == 0)
 								{
-									NumberOfWords++;
-
 									Iam_A_Wrong_string_Neglect_Me = true;
-
 									break;
 								}
 							}
-							*/
+							
 							// Check for extra space i.e: ' ' ' '
 							if(buffeee.compare("") == 0);
 
@@ -458,8 +454,7 @@ bool list :: LinkedList_Load_Enhanced_even_more(const string FileToOpen)
 							else
 							{
 								MyToLower(buffeee);
-								
-								/*
+
 								for(int i = 0; i < forbidden_char_count; i++)
 								{
 									if(buffeee.back() == forbidden_chars[i])
@@ -468,8 +463,7 @@ bool list :: LinkedList_Load_Enhanced_even_more(const string FileToOpen)
 										i = 0;
 									}
 								}
-								*/
-								
+
 								// True for exisiting buffeee
 								if(LinkedList_Search(buffeee, GENERIC_SEARCH) == true)
 								{
@@ -492,6 +486,8 @@ bool list :: LinkedList_Load_Enhanced_even_more(const string FileToOpen)
 										general_pointer -> lines.append(" ");
 										general_pointer -> lines.append(Line_Number_Append_ME);
 									}
+
+									//cout << general_pointer -> lines << " are the lines\n";
 
 									// Reset the general pointer so it doesn't make an undefiend error
 									general_pointer = NULL;
@@ -522,9 +518,10 @@ bool list :: LinkedList_Load_Enhanced_even_more(const string FileToOpen)
 
 
 // Search for an item
-bool list :: LinkedList_Search(listelementType &e, int mode)
+bool list :: LinkedList_Search(const listelementType &e, int mode)
 {
-	bool starting_with_flag = true, Just_Indication = false, I_Need_A_New_Line = false;
+	bool starting_with_flag = true, Just_Indication = false, I_Need_A_New_Line = false;;
+	unsigned int x = 0;
 
 	// Start from the beginning of the list
 	ptr_tmp = head -> next;
@@ -535,8 +532,6 @@ bool list :: LinkedList_Search(listelementType &e, int mode)
 		//cout << "No data to compare \n";
 		return false;
 	}
-
-	MyToLower(e);
 
 	// Operations:: starting with, containing, Search for string, Generic Search
 	switch(mode)
@@ -562,6 +557,7 @@ bool list :: LinkedList_Search(listelementType &e, int mode)
 				{
 					if(I_Need_A_New_Line == true)
 					{
+						//cout << " ";
 						cout << "\t";
 					}
 
@@ -596,6 +592,7 @@ bool list :: LinkedList_Search(listelementType &e, int mode)
 				{
 					if(I_Need_A_New_Line == true)
 					{
+						//cout << " ";
 						cout << "\t";
 					}
 
@@ -630,8 +627,8 @@ bool list :: LinkedList_Search(listelementType &e, int mode)
 					}
 
 					Just_Indication = true;
-
-					cout << ptr_tmp -> item << ":\tlines " << ptr_tmp -> lines;
+					//cout << ptr_tmp -> item << ": lines " << ptr_tmp -> lines;
+					cout << ptr_tmp -> item << ":\t lines " << ptr_tmp -> lines;
 					I_Need_A_New_Line = true;
 				}
 				ptr_tmp = ptr_tmp -> next;
@@ -681,10 +678,7 @@ bool list :: LinkedList_Search(listelementType &e, int mode)
 						}
 					}
 					
-					if(Just_Indication == true)
-					{
-						Just_Indication = false;
-					}
+					if(Just_Indication == true);
 					else
 					{
 						if(I_Need_A_New_Line == true)
@@ -692,7 +686,7 @@ bool list :: LinkedList_Search(listelementType &e, int mode)
 							cout << " ";
 						}
 
-						I_Need_A_New_Line = true;
+						Just_Indication = true;
 						cout << ptr_tmp -> item;
 
 					}
@@ -814,7 +808,6 @@ bool list :: LinkedList_size_words()
 bool list :: LinkedList_distinct_words()
 {
 	cout << NumberOfDistinctWords << " distinct words\n";
-	//cout << Real_NumberOfWords << " distinct words\n";
 	return true;
 }
 
@@ -822,8 +815,7 @@ bool list :: LinkedList_distinct_words()
 bool list :: LinkedList_Frequent_Word()
 {
 	cout << "Most frequent word is: ";
-	string s = "Start Operation";
-	LinkedList_Search(s, FREQUENT_WORD_SEARCH);
+	LinkedList_Search("Start_Process", FREQUENT_WORD_SEARCH);
 	cout << "\n";
 
 	return true;
@@ -834,7 +826,7 @@ bool list :: LinkedList_WordCout(std :: string &e)
 
 	if(LinkedList_Search(e, WORD_COUNT_OPERATION) == true);
 	else
-		cout << e << " is repeated 0 times\n";
+		cout << "Word not found\n";
 
 	return true;
 }
@@ -1017,8 +1009,7 @@ int list :: CheckMyOperationAndExecute(const char *File_TO_OPEN)
 				else
 				{
 					The_Most_Important_Flag = true;
-					argument_counter = 3;
-					Operations_Help_Decide(argument_counter, argument_vector1, argument_vector2);
+					cout << "Incorrect number of arguments\n";
 					// Reset the counter
 					argument_counter = 0;
 				}
@@ -1097,19 +1088,6 @@ bool list :: Operations_Help_Decide(int argc, std:: string op, string ptr)
 
 			break;
 
-		case 3:
-			for(i = 0; i < NoOfOperations; i++)
-			{
-				if(op.compare(operationsArray[i]) == 0)
-				{
-					// send a string and a pointer, choose in the function which one you need
-					cout << "Incorrect number of arguments\n";
-					return false;
-				}
-			}
-			cout << "Undefined command\n";
-			return false;
-			break;
 		default:
 			cout << "AN ERROR HAPPENED\n";
 			break;
